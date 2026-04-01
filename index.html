@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!-- ✏️ MODIFICA: cambia il titolo con il tuo nome -->
+  <title>Nome Cognome — Portfolio</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* =============================================
+       VARIABILI — modifica qui i colori del sito
+       ============================================= */
+    :root {
+      --colore-sfondo:     #ffffff;
+      --colore-testo:      #1a1a1a;
+      --colore-testo-muto: #666666;
+      --colore-accento:    #2563eb;   /* ✏️ cambia questo colore con il tuo preferito */
+      --colore-bordo:      #e5e5e5;
+      --colore-card:       #f8f8f8;
+
+      --font-titoli: 'IBM Plex Mono', monospace;
+      --font-testo:  'IBM Plex Sans', sans-serif;
+
+      --larghezza-max: 760px;
+      --raggio:        8px;
+    }
+
+    /* =============================================
+       RESET E BASE
+       ============================================= */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--colore-sfondo);
+      color: var(--colore-testo);
+      font-family: var(--font-testo);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    /* =============================================
+       NAVIGAZIONE
+       ============================================= */
+    nav {
+      position: sticky;
+      top: 0;
+      background-color: var(--colore-sfondo);
+      border-bottom: 1px solid var(--colore-bordo);
+      z-index: 100;
+      padding: 0 32px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 32px;
+      max-width: var(--larghezza-max);
+      margin: 0 auto;
+      padding: 16px 0;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--colore-testo-muto);
+      font-size: 13px;
+      font-family: var(--font-titoli);
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--colore-accento);
+    }
+
+    /* =============================================
+       LAYOUT PRINCIPALE
+       ============================================= */
+    main {
+      max-width: var(--larghezza-max);
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    section {
+      padding: 80px 0;
+      border-bottom: 1px solid var(--colore-bordo);
+    }
+
+    section:last-child {
+      border-bottom: none;
+    }
+
+    /* =============================================
+       TIPOGRAFIA
+       ============================================= */
+    .etichetta {
+      font-family: var(--font-titoli);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--colore-accento);
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-family: var(--font-titoli);
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 500;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      font-family: var(--font-titoli);
+      font-size: 22px;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    h3 {
+      font-family: var(--font-titoli);
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    p {
+      color: var(--colore-testo-muto);
+      max-width: 600px;
+    }
+
+    a {
+      color: var(--colore-accento);
+    }
+
+    /* =============================================
+       SEZIONE HERO (intestazione)
+       ============================================= */
+    #hero {
+      padding: 100px 0 80px;
+    }
+
+    #hero .sottotitolo {
+      font-size: 18px;
+      color: var(--colore-testo-muto);
+      margin-bottom: 32px;
+      max-width: 520px;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 24px;
+    }
+
+    .tag {
+      font-family: var(--font-titoli);
+      font-size: 12px;
+      padding: 4px 12px;
+      border: 1px solid var(--colore-bordo);
+      border-radius: 100px;
+      color: var(--colore-testo-muto);
+    }
+
+    /* =============================================
+       SEZIONE CHI SONO
+       ============================================= */
+    .griglia-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-top: 32px;
+    }
+
+    .info-riga {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--colore-bordo);
+    }
+
+    .info-riga span:first-child {
+      font-family: var(--font-titoli);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--colore-testo-muto);
+    }
+
+    .info-riga span:last-child {
+      font-size: 15px;
+      color: var(--colore-testo);
+    }
+
+    /* =============================================
+       SEZIONE COMPETENZE
+       ============================================= */
+    .competenze-griglia {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .competenza-card {
+      background: var(--colore-card);
+      border: 1px solid var(--colore-bordo);
+      border-radius: var(--raggio);
+      padding: 20px;
+    }
+
+    .competenza-card h3 {
+      font-size: 13px;
+      margin-bottom: 12px;
+      color: var(--colore-testo);
+    }
+
+    .barra-contenitore {
+      background: var(--colore-bordo);
+      border-radius: 4px;
+      height: 4px;
+      overflow: hidden;
+    }
+
+    .barra {
+      height: 100%;
+      background: var(--colore-accento);
+      border-radius: 4px;
+    }
+
+    .livello-label {
+      font-family: var(--font-titoli);
+      font-size: 10px;
+      color: var(--colore-testo-muto);
+      margin-top: 6px;
+    }
+
+    /* =============================================
+       SEZIONE PROGETTI
+       ============================================= */
+    .progetti-lista {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-top: 32px;
+    }
+
+    .progetto-card {
+      border: 1px solid var(--colore-bordo);
+      border-radius: var(--raggio);
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .progetto-card:hover {
+      border-color: var(--colore-accento);
+    }
+
+    .progetto-immagine {
+      width: 100%;
+      height: 180px;
+      background: var(--colore-card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-titoli);
+      font-size: 12px;
+      color: var(--colore-testo-muto);
+      /* ✏️ puoi sostituire il colore di sfondo con un'immagine:
+         background: url('immagine-progetto.jpg') center/cover; */
+    }
+
+    .progetto-corpo {
+      padding: 24px;
+    }
+
+    .progetto-meta {
+      display: flex;
+      gap: 12px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      font-family: var(--font-titoli);
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 4px;
+      background: var(--colore-card);
+      border: 1px solid var(--colore-bordo);
+      color: var(--colore-testo-muto);
+    }
+
+    .progetto-link {
+      display: inline-block;
+      margin-top: 16px;
+      font-family: var(--font-titoli);
+      font-size: 12px;
+      color: var(--colore-accento);
+      text-decoration: none;
+    }
+
+    .progetto-link:hover {
+      text-decoration: underline;
+    }
+
+    /* =============================================
+       SEZIONE PERCORSO
+       ============================================= */
+    .timeline {
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 24px;
+      padding-bottom: 32px;
+      position: relative;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 91px;
+      top: 6px;
+      bottom: 0;
+      width: 1px;
+      background: var(--colore-bordo);
+    }
+
+    .timeline-item:last-child::before {
+      display: none;
+    }
+
+    .timeline-anno {
+      font-family: var(--font-titoli);
+      font-size: 12px;
+      color: var(--colore-testo-muto);
+      padding-top: 2px;
+      text-align: right;
+    }
+
+    .timeline-contenuto {
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .timeline-contenuto::before {
+      content: '';
+      position: absolute;
+      left: -4px;
+      top: 7px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--colore-accento);
+    }
+
+    /* =============================================
+       SEZIONE CONTATTI
+       ============================================= */
+    .contatti-lista {
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .contatto-riga {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+      border: 1px solid var(--colore-bordo);
+      border-radius: var(--raggio);
+      text-decoration: none;
+      color: var(--colore-testo);
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .contatto-riga:hover {
+      border-color: var(--colore-accento);
+      background: var(--colore-card);
+    }
+
+    .contatto-icona {
+      font-family: var(--font-titoli);
+      font-size: 12px;
+      color: var(--colore-accento);
+      min-width: 80px;
+    }
+
+    /* =============================================
+       FOOTER
+       ============================================= */
+    footer {
+      border-top: 1px solid var(--colore-bordo);
+      padding: 32px;
+      text-align: center;
+      font-family: var(--font-titoli);
+      font-size: 12px;
+      color: var(--colore-testo-muto);
+    }
+
+    /* =============================================
+       RESPONSIVE (schermi piccoli)
+       ============================================= */
+    @media (max-width: 600px) {
+      main { padding: 0 20px; }
+      nav { padding: 0 20px; }
+      .griglia-2col { grid-template-columns: 1fr; }
+      .timeline-item { grid-template-columns: 70px 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVIGAZIONE -->
+  <nav>
+    <ul>
+      <!-- ✏️ puoi cambiare le voci del menu -->
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#chi-sono">Chi sono</a></li>
+      <li><a href="#competenze">Competenze</a></li>
+      <li><a href="#progetti">Progetti</a></li>
+      <li><a href="#percorso">Percorso</a></li>
+      <li><a href="#contatti">Contatti</a></li>
+      <li><a href="./stage.html">Stage</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <!-- ==========================================
+         HERO — presentazione iniziale
+         ========================================== -->
+    <section id="hero">
+      <p class="etichetta">Portfolio</p>
+
+      <!-- ✏️ MODIFICA: il tuo nome e cognome -->
+      <h1>Nome Cognome</h1>
+
+      <!-- ✏️ MODIFICA: una frase breve su di te -->
+      <p class="sottotitolo">
+        Studente di Informatica al terzo anno. Appassionato di programmazione,
+        reti e tutto ciò che si può costruire con il codice.
+      </p>
+
+      <!-- ✏️ MODIFICA: le parole chiave che ti descrivono -->
+      <div class="tag-list">
+        <span class="tag">Python</span>
+        <span class="tag">Web Design</span>
+        <span class="tag">Arduino</span>
+        <span class="tag">Reti</span>
+        <span class="tag">Milano</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         CHI SONO
+         ========================================== -->
+    <section id="chi-sono">
+      <p class="etichetta">Chi sono</p>
+      <h2>Informazioni personali</h2>
+
+      <!-- ✏️ MODIFICA: scrivi qualcosa su di te -->
+      <p style="margin-top: 16px;">
+        Mi chiamo Nome Cognome, ho [età] anni e frequento il terzo anno
+        dell'indirizzo [scuola]. Sono curioso,
+        mi piace risolvere problemi e imparare cose nuove.
+        Nel tempo libero [scrivi qualcosa sui tuoi interessi].
+      </p>
+
+      <div class="griglia-2col" style="margin-top: 40px;">
+        <div>
+          <!-- ✏️ MODIFICA: le tue informazioni -->
+          <div class="info-riga">
+            <span>Nome</span>
+            <span>Nome Cognome</span>
+          </div>
+          <div class="info-riga">
+            <span>Età</span>
+            <span>-- anni</span>
+          </div>
+          <div class="info-riga">
+            <span>Città</span>
+            <span>--</span>
+          </div>
+          <div class="info-riga">
+            <span>Lingue</span>
+            <span>Italiano, Inglese</span>
+          </div>
+        </div>
+        <div>
+          <div class="info-riga">
+            <span>Scuola</span>
+            <span>Immaginazione e Lavoro</span>
+          </div>
+          <div class="info-riga">
+            <span>Indirizzo</span>
+            <span>Informatica</span>
+          </div>
+          <div class="info-riga">
+            <span>Anno</span>
+            <span>Terzo anno</span>
+          </div>
+          <div class="info-riga">
+            <span>Anno scolastico</span>
+            <span>2025 / 2026</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         COMPETENZE
+         ========================================== -->
+    <section id="competenze">
+      <p class="etichetta">Competenze</p>
+      <h2>Cosa so fare</h2>
+      <p style="margin-top: 8px;">
+        Le competenze tecniche acquisite durante l'anno scolastico.
+      </p>
+
+      <!-- ✏️ MODIFICA: le tue competenze e il livello (da 0% a 100%) -->
+      <div class="competenze-griglia">
+
+        <div class="competenza-card">
+          <h3>HTML / CSS</h3>
+          <div class="barra-contenitore">
+            <div class="barra" style="width: 70%"></div>
+          </div>
+          <p class="livello-label">Intermedio</p>
+        </div>
+
+        <div class="competenza-card">
+          <h3>Python</h3>
+          <div class="barra-contenitore">
+            <div class="barra" style="width: 55%"></div>
+          </div>
+          <p class="livello-label">Base / Intermedio</p>
+        </div>
+
+        <div class="competenza-card">
+          <h3>Arduino</h3>
+          <div class="barra-contenitore">
+            <div class="barra" style="width: 50%"></div>
+          </div>
+          <p class="livello-label">Base</p>
+        </div>
+
+        <div class="competenza-card">
+          <h3>Reti</h3>
+          <div class="barra-contenitore">
+            <div class="barra" style="width: 40%"></div>
+          </div>
+          <p class="livello-label">Base</p>
+        </div>
+
+        <div class="competenza-card">
+          <h3>Sistemi operativi</h3>
+          <div class="barra-contenitore">
+            <div class="barra" style="width: 45%"></div>
+          </div>
+          <p class="livello-label">Base</p>
+        </div>
+
+        <!-- ✏️ aggiungi altre competenze copiando il blocco sopra -->
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         PROGETTI
+         ========================================== -->
+    <section id="progetti">
+      <p class="etichetta">Progetti</p>
+      <h2>Cosa ho realizzato</h2>
+      <p style="margin-top: 8px;">
+        I progetti sviluppati durante l'anno scolastico.
+      </p>
+
+      <div class="progetti-lista">
+
+        <!-- PROGETTO 1 — ✏️ MODIFICA con il tuo progetto -->
+        <div class="progetto-card">
+          <div class="progetto-immagine">
+            <!-- ✏️ sostituisci questo placeholder con un'immagine del progetto:
+                 <img src="screenshot-progetto.jpg" alt="Nome progetto" style="width:100%;height:100%;object-fit:cover;">
+            -->
+            [ immagine progetto ]
+          </div>
+          <div class="progetto-corpo">
+            <h2>Nome del progetto</h2>
+            <p style="margin-top: 8px;">
+              Descrizione breve del progetto: cosa fa, come funziona, cosa hai imparato
+              realizzandolo. Due o tre righe bastano.
+            </p>
+            <div class="progetto-meta">
+              <!-- ✏️ aggiungi i linguaggi / strumenti usati -->
+              <span class="badge">Python</span>
+              <span class="badge">HTML</span>
+            </div>
+            <!-- ✏️ se hai un link al progetto, inseriscilo qui -->
+            <!-- <a href="#" class="progetto-link">→ Vedi il progetto</a> -->
+          </div>
+        </div>
+
+        <!-- PROGETTO 2 — ✏️ MODIFICA con il tuo progetto -->
+        <div class="progetto-card">
+          <div class="progetto-immagine">[ immagine progetto ]</div>
+          <div class="progetto-corpo">
+            <h2>Nome del progetto</h2>
+            <p style="margin-top: 8px;">
+              Descrizione breve del progetto.
+            </p>
+            <div class="progetto-meta">
+              <span class="badge">Arduino</span>
+              <span class="badge">C++</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ✏️ copia un blocco qui sopra per aggiungere altri progetti -->
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         PERCORSO
+         ========================================== -->
+    <section id="percorso">
+      <p class="etichetta">Percorso</p>
+      <h2>Il mio percorso scolastico</h2>
+
+      <div class="timeline">
+
+        <!-- ✏️ MODIFICA: aggiungi/modifica le tappe del tuo percorso -->
+
+        <div class="timeline-item">
+          <span class="timeline-anno">2025–26</span>
+          <div class="timeline-contenuto">
+            <h3>Terzo anno — Informatica</h3>
+            <p>Immaginazione e Lavoro, Milano. Programmazione Python,
+               web design, Arduino, reti e sistemi.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <span class="timeline-anno">2024–25</span>
+          <div class="timeline-contenuto">
+            <h3>Secondo anno</h3>
+            <p>Descrivi cosa hai fatto / imparato il secondo anno.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <span class="timeline-anno">2023–24</span>
+          <div class="timeline-contenuto">
+            <h3>Primo anno</h3>
+            <p>Descrivi il tuo primo anno.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <span class="timeline-anno">prima</span>
+          <div class="timeline-contenuto">
+            <h3>Scuola media</h3>
+            <p>
+              <!-- ✏️ MODIFICA: la tua scuola media -->
+              Scuola Secondaria di I grado, [città].
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         CONTATTI
+         ========================================== -->
+    <section id="contatti">
+      <p class="etichetta">Contatti</p>
+      <h2>Dove trovarmi</h2>
+      <p style="margin-top: 8px;">
+        Puoi contattarmi tramite email o trovare i miei lavori online.
+      </p>
+
+      <div class="contatti-lista">
+
+        <!-- ✏️ MODIFICA: la tua email -->
+        <a href="mailto:tua@email.it" class="contatto-riga">
+          <span class="contatto-icona">Email</span>
+          <span>tua@email.it</span>
+        </a>
+
+        <!-- ✏️ MODIFICA: il tuo profilo GitHub (se ce l'hai) -->
+        <a href="https://github.com/tuousername" class="contatto-riga" target="_blank">
+          <span class="contatto-icona">GitHub</span>
+          <span>github.com/tuousername</span>
+        </a>
+
+        <!-- ✏️ aggiungi altri link (LinkedIn, ecc.) copiando il blocco sopra
+             oppure cancella quelli che non usi -->
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <!-- ✏️ MODIFICA: il tuo nome -->
+    © 2026 Nome Cognome — Portfolio scolastico
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!-- ✏️ MODIFICA: cambia il titolo con il tuo nome -->
+  <title>Nome Cognome — Stage</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* =============================================
+       VARIABILI — stesse del portfolio principale
+       ============================================= */
+    :root {
+      --colore-sfondo:     #ffffff;
+      --colore-testo:      #1a1a1a;
+      --colore-testo-muto: #666666;
+      --colore-accento:    #2563eb;   /* ✏️ stesso colore del portfolio */
+      --colore-bordo:      #e5e5e5;
+      --colore-card:       #f8f8f8;
+
+      --font-titoli: 'IBM Plex Mono', monospace;
+      --font-testo:  'IBM Plex Sans', sans-serif;
+
+      --larghezza-max: 760px;
+      --raggio:        8px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--colore-sfondo);
+      color: var(--colore-testo);
+      font-family: var(--font-testo);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    /* =============================================
+       NAVIGAZIONE — uguale al portfolio
+       ============================================= */
+    nav {
+      position: sticky;
+      top: 0;
+      background-color: var(--colore-sfondo);
+      border-bottom: 1px solid var(--colore-bordo);
+      z-index: 100;
+      padding: 0 32px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 32px;
+      max-width: var(--larghezza-max);
+      margin: 0 auto;
+      padding: 16px 0;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--colore-testo-muto);
+      font-size: 13px;
+      font-family: var(--font-titoli);
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+
+    nav a:hover,
+    nav a.attivo {
+      color: var(--colore-accento);
+    }
+
+    /* =============================================
+       LAYOUT
+       ============================================= */
+    main {
+      max-width: var(--larghezza-max);
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    section {
+      padding: 80px 0;
+      border-bottom: 1px solid var(--colore-bordo);
+    }
+
+    section:last-child {
+      border-bottom: none;
+    }
+
+    /* =============================================
+       TIPOGRAFIA
+       ============================================= */
+    .etichetta {
+      font-family: var(--font-titoli);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--colore-accento);
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-family: var(--font-titoli);
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 500;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      font-family: var(--font-titoli);
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    h3 {
+      font-family: var(--font-titoli);
+      font-size: 13px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--colore-testo-muto);
+      margin-bottom: 8px;
+    }
+
+    p {
+      color: var(--colore-testo-muto);
+    }
+
+    /* =============================================
+       INTESTAZIONE PAGINA
+       ============================================= */
+    #intro {
+      padding: 80px 0 60px;
+    }
+
+    #intro p {
+      margin-top: 12px;
+      max-width: 520px;
+    }
+
+    /* numerazione stage -->*/
+    .numero-stage {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--colore-accento);
+      color: #fff;
+      font-family: var(--font-titoli);
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 24px;
+    }
+
+    /* =============================================
+       SCHEDA AZIENDA
+       ============================================= */
+    .scheda-azienda {
+      border: 1px solid var(--colore-bordo);
+      border-radius: var(--raggio);
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+
+    .scheda-header {
+      background: var(--colore-card);
+      border-bottom: 1px solid var(--colore-bordo);
+      padding: 20px 24px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .scheda-header h2 {
+      font-size: 18px;
+    }
+
+    .scheda-header .settore-badge {
+      font-family: var(--font-titoli);
+      font-size: 11px;
+      padding: 4px 12px;
+      border: 1px solid var(--colore-bordo);
+      border-radius: 100px;
+      color: var(--colore-testo-muto);
+      background: var(--colore-sfondo);
+      white-space: nowrap;
+    }
+
+    .scheda-corpo {
+      padding: 0;
+    }
+
+    .scheda-riga {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      border-bottom: 1px solid var(--colore-bordo);
+    }
+
+    .scheda-riga:last-child {
+      border-bottom: none;
+    }
+
+    .scheda-label {
+      font-family: var(--font-titoli);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--colore-testo-muto);
+      padding: 14px 24px;
+      background: var(--colore-card);
+      border-right: 1px solid var(--colore-bordo);
+      display: flex;
+      align-items: flex-start;
+      padding-top: 16px;
+    }
+
+    .scheda-valore {
+      padding: 14px 24px;
+      font-size: 15px;
+      color: var(--colore-testo);
+    }
+
+    /* lista attività dentro la scheda */
+    .attivita-lista {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 14px 24px;
+    }
+
+    .attivita-lista li {
+      font-size: 15px;
+      color: var(--colore-testo);
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .attivita-lista li::before {
+      content: '—';
+      color: var(--colore-accento);
+      font-family: var(--font-titoli);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* =============================================
+       RELAZIONE
+       ============================================= */
+    .relazione-contenitore {
+      margin-top: 8px;
+    }
+
+    .relazione-contenitore h3 {
+      margin-bottom: 16px;
+    }
+
+    /* paragrafi della relazione */
+    .relazione-testo {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .relazione-paragrafo {
+      border-left: 3px solid var(--colore-bordo);
+      padding-left: 20px;
+    }
+
+    .relazione-paragrafo .para-titolo {
+      font-family: var(--font-titoli);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--colore-accento);
+      margin-bottom: 6px;
+    }
+
+    .relazione-paragrafo p {
+      font-size: 15px;
+      line-height: 1.75;
+      /* ✏️ il testo della relazione va qui */
+    }
+
+    /* =============================================
+       SEPARATORE TRA I DUE STAGE
+       ============================================= */
+    .separatore {
+      border: none;
+      border-top: 1px dashed var(--colore-bordo);
+      margin: 0;
+    }
+
+    /* =============================================
+       FOOTER
+       ============================================= */
+    footer {
+      border-top: 1px solid var(--colore-bordo);
+      padding: 32px;
+      text-align: center;
+      font-family: var(--font-titoli);
+      font-size: 12px;
+      color: var(--colore-testo-muto);
+    }
+
+    /* =============================================
+       RESPONSIVE
+       ============================================= */
+    @media (max-width: 600px) {
+      main  { padding: 0 20px; }
+      nav   { padding: 0 20px; }
+      .scheda-riga { grid-template-columns: 1fr; }
+      .scheda-label { border-right: none; border-bottom: 1px solid var(--colore-bordo); }
+      .scheda-header { flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVIGAZIONE -->
+  <nav>
+    <ul>
+      <!-- ✏️ MODIFICA: stessi link del tuo portfolio -->
+      <li><a href="./index.html">Home</a></li>
+      <li><a href="index.html#chi-sono">Chi sono</a></li>
+      <li><a href="./index.html#competenze">Competenze</a></li>
+      <li><a href="./index.html#progetti">Progetti</a></li>
+      <li><a href="./index.html#percorso">Percorso</a></li>
+      <li><a href="./index.html#contatti">Contatti</a></li>
+      <li><a href="./stage.html" class="attivo">Stage</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <!-- INTESTAZIONE -->
+    <section id="intro">
+      <p class="etichetta">Esperienze</p>
+      <h1>Stage</h1>
+      <p>
+        In questa pagina trovi le relazioni e le schede dei due periodi
+        di stage svolti durante il percorso scolastico.
+      </p>
+    </section>
+
+
+    <!-- ==========================================
+         STAGE 1
+         ========================================== -->
+    <section id="stage-1">
+
+      <div class="numero-stage">1</div>
+
+      <!-- SCHEDA AZIENDA -->
+      <div class="scheda-azienda">
+
+        <div class="scheda-header">
+          <!-- ✏️ MODIFICA: nome azienda e settore -->
+          <h2>Nome Azienda</h2>
+          <span class="settore-badge">Settore (es. Web agency)</span>
+        </div>
+
+        <div class="scheda-corpo">
+
+          <div class="scheda-riga">
+            <span class="scheda-label">Città</span>
+            <!-- ✏️ MODIFICA -->
+            <span class="scheda-valore">Milano, Italia</span>
+          </div>
+
+          <div class="scheda-riga">
+            <span class="scheda-label">Periodo</span>
+            <!-- ✏️ MODIFICA: quando hai fatto lo stage -->
+            <span class="scheda-valore">Gennaio 2025 — Febbraio 2025</span>
+          </div>
+
+          <div class="scheda-riga">
+            <span class="scheda-label">Durata</span>
+            <!-- ✏️ MODIFICA -->
+            <span class="scheda-valore">4 settimane · 120 ore</span>
+          </div>
+
+          <div class="scheda-riga">
+            <span class="scheda-label">Attività svolte</span>
+            <!-- ✏️ MODIFICA: aggiungi / rimuovi voci -->
+            <ul class="attivita-lista">
+              <li>Descrizione attività 1</li>
+              <li>Descrizione attività 2</li>
+              <li>Descrizione attività 3</li>
+              <li>Descrizione attività 4</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RELAZIONE -->
+      <div class="relazione-contenitore">
+        <h3>Relazione</h3>
+
+        <div class="relazione-testo">
+
+          <!-- ✏️ Ogni blocco è un paragrafo della relazione.
+               Puoi cambiare i titoli e scrivere il tuo testo dentro i tag <p>.
+               Puoi aggiungere altri paragrafi copiando il blocco sotto. -->
+
+          <div class="relazione-paragrafo">
+            <p class="para-titolo">Presentazione dell'azienda</p>
+            <p>
+              Scrivi qui una breve presentazione dell'azienda in cui hai svolto
+              lo stage: cosa fa, quante persone lavorano, dove si trova,
+              in che ambito opera.
+            </p>
+          </div>
+
+          <div class="relazione-paragrafo">
+            <p class="para-titolo">Cosa ho fatto</p>
+            <p>
+              Descrivi le attività che hai svolto durante lo stage.
+              Cerca di essere preciso: quali strumenti hai usato,
+              con chi lavoravi, quali compiti ti venivano assegnati.
+            </p>
+          </div>
+
+          <div class="relazione-paragrafo">
+            <p class="para-titolo">Cosa ho imparato</p>
+            <p>
+              Rifletti su cosa ti ha insegnato questa esperienza.
+              Competenze tecniche, competenze relazionali, abitudini
+              del mondo del lavoro che non conoscevi.
+            </p>
+          </div>
+
+          <div class="relazione-paragrafo">
+            <p class="para-titolo">Valutazione personale</p>
+            <p>
+              Esprimi un giudizio sull'esperienza: cosa ti è piaciuto,
+              cosa cambieresti, se la consiglieresti e perché.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ==========================================
+         STAGE 2
+         ========================================== -->
+    <section id="stage-2">
+
+      <div class="numero-stage">2</div>
+
+      <!-- SCHEDA AZIENDA -->
+      <div class="scheda-azienda">
+
+        <div class="scheda-header">
+          <!-- ✏️ MODIFICA: nome azienda e settore -->
+          <h2>Nome Azienda</h2>
+          <span class="settore-badge">Settore (es. Software house)</span>
+        </div>
+
+        <div class="scheda-corpo">
+
+          <div class="scheda-riga">
+            <span class="scheda-label">Città</span>
+            <span class="scheda-valore">Como, Italia</span>
+          </div>
+
+          <div class="scheda-riga">
+            <span class="scheda-label">Periodo</span>
+            <span class="scheda-valore">Gennaio 2026 — Febbraio 2026</span>
+          </div>
+
+          <div class="scheda-riga">
+            <span class="scheda-label">Durata</span>
+            <span class="scheda-valore">4 settimane · 120 ore</span>
+          </div>
+
+          <div class="scheda-riga">
+            <span class="scheda-label">Attività svolte</span>
+            <ul class="attivita-lista">
+              <li>Descrizione attività 1</li>
+              <li>Descrizione attività 2</li>
+              <li>Descrizione attività 3</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RELAZIONE -->
+      <div class="relazione-contenitore">
+        <h3>Relazione</h3>
+
+        <div class="relazione-testo">
+
+          <div class="relazione-paragrafo">
+            <p class="para-titolo">Presentazione dell'azienda</p>
+            <p>
+              Scrivi qui una breve presentazione dell'azienda.
+            </p>
+          </div>
+
+          <div class="relazione-paragrafo">
+            <p class="para-titolo">Cosa ho fatto</p>
+            <p>
+              Descrivi le attività che hai svolto.
+            </p>
+          </div>
+
+          <div class="relazione-paragrafo">
+            <p class="para-titolo">Cosa ho imparato</p>
+            <p>
+              Rifletti su cosa ti ha insegnato questa esperienza.
+            </p>
+          </div>
+
+          <div class="relazione-paragrafo">
+            <p class="para-titolo">Valutazione personale</p>
+            <p>
+              Esprimi un giudizio sull'esperienza.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer>
+    <!-- ✏️ MODIFICA: il tuo nome -->
+    © 2026 Nome Cognome — Portfolio scolastico
+  </footer>
+
+</body>
+</html>
