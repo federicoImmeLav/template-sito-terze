@@ -9,427 +9,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-
-  <style>
-    /* =============================================
-       VARIABILI — modifica qui i colori del sito
-       ============================================= */
-    :root {
-      --colore-sfondo:     #ffffff;
-      --colore-testo:      #1a1a1a;
-      --colore-testo-muto: #666666;
-      --colore-accento:    #2563eb;   /* ✏️ cambia questo colore con il tuo preferito */
-      --colore-bordo:      #e5e5e5;
-      --colore-card:       #f8f8f8;
-
-      --font-titoli: 'IBM Plex Mono', monospace;
-      --font-testo:  'IBM Plex Sans', sans-serif;
-
-      --larghezza-max: 760px;
-      --raggio:        8px;
-    }
-
-    /* =============================================
-       RESET E BASE
-       ============================================= */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      background-color: var(--colore-sfondo);
-      color: var(--colore-testo);
-      font-family: var(--font-testo);
-      font-size: 16px;
-      line-height: 1.7;
-    }
-
-    /* =============================================
-       NAVIGAZIONE
-       ============================================= */
-    nav {
-      position: sticky;
-      top: 0;
-      background-color: var(--colore-sfondo);
-      border-bottom: 1px solid var(--colore-bordo);
-      z-index: 100;
-      padding: 0 32px;
-    }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 32px;
-      max-width: var(--larghezza-max);
-      margin: 0 auto;
-      padding: 16px 0;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: var(--colore-testo-muto);
-      font-size: 13px;
-      font-family: var(--font-titoli);
-      letter-spacing: 0.05em;
-      transition: color 0.2s;
-    }
-
-    nav a:hover {
-      color: var(--colore-accento);
-    }
-
-    /* =============================================
-       LAYOUT PRINCIPALE
-       ============================================= */
-    main {
-      max-width: var(--larghezza-max);
-      margin: 0 auto;
-      padding: 0 32px;
-    }
-
-    section {
-      padding: 80px 0;
-      border-bottom: 1px solid var(--colore-bordo);
-    }
-
-    section:last-child {
-      border-bottom: none;
-    }
-
-    /* =============================================
-       TIPOGRAFIA
-       ============================================= */
-    .etichetta {
-      font-family: var(--font-titoli);
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--colore-accento);
-      margin-bottom: 24px;
-    }
-
-    h1 {
-      font-family: var(--font-titoli);
-      font-size: clamp(28px, 5vw, 42px);
-      font-weight: 500;
-      line-height: 1.2;
-      margin-bottom: 16px;
-    }
-
-    h2 {
-      font-family: var(--font-titoli);
-      font-size: 22px;
-      font-weight: 500;
-      margin-bottom: 8px;
-    }
-
-    h3 {
-      font-family: var(--font-titoli);
-      font-size: 15px;
-      font-weight: 500;
-      margin-bottom: 6px;
-    }
-
-    p {
-      color: var(--colore-testo-muto);
-      max-width: 600px;
-    }
-
-    a {
-      color: var(--colore-accento);
-    }
-
-    /* =============================================
-       SEZIONE HERO (intestazione)
-       ============================================= */
-    #hero {
-      padding: 100px 0 80px;
-    }
-
-    #hero .sottotitolo {
-      font-size: 18px;
-      color: var(--colore-testo-muto);
-      margin-bottom: 32px;
-      max-width: 520px;
-    }
-
-    .tag-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 24px;
-    }
-
-    .tag {
-      font-family: var(--font-titoli);
-      font-size: 12px;
-      padding: 4px 12px;
-      border: 1px solid var(--colore-bordo);
-      border-radius: 100px;
-      color: var(--colore-testo-muto);
-    }
-
-    /* =============================================
-       SEZIONE CHI SONO
-       ============================================= */
-    .griglia-2col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      margin-top: 32px;
-    }
-
-    .info-riga {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      padding: 16px 0;
-      border-bottom: 1px solid var(--colore-bordo);
-    }
-
-    .info-riga span:first-child {
-      font-family: var(--font-titoli);
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--colore-testo-muto);
-    }
-
-    .info-riga span:last-child {
-      font-size: 15px;
-      color: var(--colore-testo);
-    }
-
-    /* =============================================
-       SEZIONE COMPETENZE
-       ============================================= */
-    .competenze-griglia {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 16px;
-      margin-top: 32px;
-    }
-
-    .competenza-card {
-      background: var(--colore-card);
-      border: 1px solid var(--colore-bordo);
-      border-radius: var(--raggio);
-      padding: 20px;
-    }
-
-    .competenza-card h3 {
-      font-size: 13px;
-      margin-bottom: 12px;
-      color: var(--colore-testo);
-    }
-
-    .barra-contenitore {
-      background: var(--colore-bordo);
-      border-radius: 4px;
-      height: 4px;
-      overflow: hidden;
-    }
-
-    .barra {
-      height: 100%;
-      background: var(--colore-accento);
-      border-radius: 4px;
-    }
-
-    .livello-label {
-      font-family: var(--font-titoli);
-      font-size: 10px;
-      color: var(--colore-testo-muto);
-      margin-top: 6px;
-    }
-
-    /* =============================================
-       SEZIONE PROGETTI
-       ============================================= */
-    .progetti-lista {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-      margin-top: 32px;
-    }
-
-    .progetto-card {
-      border: 1px solid var(--colore-bordo);
-      border-radius: var(--raggio);
-      overflow: hidden;
-      transition: border-color 0.2s;
-    }
-
-    .progetto-card:hover {
-      border-color: var(--colore-accento);
-    }
-
-    .progetto-immagine {
-      width: 100%;
-      height: 180px;
-      background: var(--colore-card);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-titoli);
-      font-size: 12px;
-      color: var(--colore-testo-muto);
-      /* ✏️ puoi sostituire il colore di sfondo con un'immagine:
-         background: url('immagine-progetto.jpg') center/cover; */
-    }
-
-    .progetto-corpo {
-      padding: 24px;
-    }
-
-    .progetto-meta {
-      display: flex;
-      gap: 12px;
-      margin-top: 12px;
-      flex-wrap: wrap;
-    }
-
-    .badge {
-      font-family: var(--font-titoli);
-      font-size: 11px;
-      padding: 3px 10px;
-      border-radius: 4px;
-      background: var(--colore-card);
-      border: 1px solid var(--colore-bordo);
-      color: var(--colore-testo-muto);
-    }
-
-    .progetto-link {
-      display: inline-block;
-      margin-top: 16px;
-      font-family: var(--font-titoli);
-      font-size: 12px;
-      color: var(--colore-accento);
-      text-decoration: none;
-    }
-
-    .progetto-link:hover {
-      text-decoration: underline;
-    }
-
-    /* =============================================
-       SEZIONE PERCORSO
-       ============================================= */
-    .timeline {
-      margin-top: 32px;
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-
-    .timeline-item {
-      display: grid;
-      grid-template-columns: 100px 1fr;
-      gap: 24px;
-      padding-bottom: 32px;
-      position: relative;
-    }
-
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: 91px;
-      top: 6px;
-      bottom: 0;
-      width: 1px;
-      background: var(--colore-bordo);
-    }
-
-    .timeline-item:last-child::before {
-      display: none;
-    }
-
-    .timeline-anno {
-      font-family: var(--font-titoli);
-      font-size: 12px;
-      color: var(--colore-testo-muto);
-      padding-top: 2px;
-      text-align: right;
-    }
-
-    .timeline-contenuto {
-      padding-left: 20px;
-      position: relative;
-    }
-
-    .timeline-contenuto::before {
-      content: '';
-      position: absolute;
-      left: -4px;
-      top: 7px;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--colore-accento);
-    }
-
-    /* =============================================
-       SEZIONE CONTATTI
-       ============================================= */
-    .contatti-lista {
-      margin-top: 32px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .contatto-riga {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 16px 20px;
-      border: 1px solid var(--colore-bordo);
-      border-radius: var(--raggio);
-      text-decoration: none;
-      color: var(--colore-testo);
-      transition: border-color 0.2s, background 0.2s;
-    }
-
-    .contatto-riga:hover {
-      border-color: var(--colore-accento);
-      background: var(--colore-card);
-    }
-
-    .contatto-icona {
-      font-family: var(--font-titoli);
-      font-size: 12px;
-      color: var(--colore-accento);
-      min-width: 80px;
-    }
-
-    /* =============================================
-       FOOTER
-       ============================================= */
-    footer {
-      border-top: 1px solid var(--colore-bordo);
-      padding: 32px;
-      text-align: center;
-      font-family: var(--font-titoli);
-      font-size: 12px;
-      color: var(--colore-testo-muto);
-    }
-
-    /* =============================================
-       RESPONSIVE (schermi piccoli)
-       ============================================= */
-    @media (max-width: 600px) {
-      main { padding: 0 20px; }
-      nav { padding: 0 20px; }
-      .griglia-2col { grid-template-columns: 1fr; }
-      .timeline-item { grid-template-columns: 70px 1fr; }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -444,6 +24,7 @@
       <li><a href="#progetti">Progetti</a></li>
       <li><a href="#percorso">Percorso</a></li>
       <li><a href="#contatti">Contatti</a></li>
+      <li><a href="#cv">CV</a></li>
       <li><a href="./stage.html">Stage</a></li>
     </ul>
   </nav>
@@ -646,53 +227,108 @@
     </section>
 
     <!-- ==========================================
-         PERCORSO
+         CV
          ========================================== -->
-    <section id="percorso">
-      <p class="etichetta">Percorso</p>
-      <h2>Il mio percorso scolastico</h2>
+    <section id="cv">
+      <p class="etichetta">Curriculum Vitae</p>
+      <h2>Il mio CV</h2>
+      <p style="margin-top: 8px;">
+        Formazione, esperienze e competenze in formato sintetico.
+      </p>
 
-      <div class="timeline">
-
-        <!-- ✏️ MODIFICA: aggiungi/modifica le tappe del tuo percorso -->
-
-        <div class="timeline-item">
-          <span class="timeline-anno">2025–26</span>
-          <div class="timeline-contenuto">
-            <h3>Terzo anno — Informatica</h3>
-            <p>Immaginazione e Lavoro, Milano. Programmazione Python,
-               web design, Arduino, reti e sistemi.</p>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <span class="timeline-anno">2024–25</span>
-          <div class="timeline-contenuto">
-            <h3>Secondo anno</h3>
-            <p>Descrivi cosa hai fatto / imparato il secondo anno.</p>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <span class="timeline-anno">2023–24</span>
-          <div class="timeline-contenuto">
-            <h3>Primo anno</h3>
-            <p>Descrivi il tuo primo anno.</p>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <span class="timeline-anno">prima</span>
-          <div class="timeline-contenuto">
-            <h3>Scuola media</h3>
-            <p>
-              <!-- ✏️ MODIFICA: la tua scuola media -->
-              Scuola Secondaria di I grado, [città].
-            </p>
-          </div>
-        </div>
-
+      <!-- BOTTONE DOWNLOAD PDF -->
+      <div class="cv-download-bar">
+        <p>Scarica la versione completa in PDF.</p>
+        <!-- ✏️ MODIFICA: sostituisci "cv.pdf" con il nome del tuo file PDF -->
+        <a href="cv.pdf" download="NomeCognome_CV.pdf" class="btn-scarica">
+          ↓ &nbsp;Scarica CV (PDF)
+        </a>
       </div>
+
+      <!-- FORMAZIONE -->
+      <div class="cv-blocco">
+        <p class="cv-blocco-titolo">Formazione</p>
+
+        <!-- ✏️ MODIFICA: il tuo percorso scolastico -->
+        <div class="cv-riga">
+          <span class="cv-periodo">2023 – oggi</span>
+          <div class="cv-contenuto">
+            <h3>Operatore Informatico</h3>
+            <span class="cv-luogo">Immaginazione e Lavoro — Milano</span>
+            <p>Corso triennale ad indirizzo Informatica. Programmazione Python,
+               web design, Arduino, reti e sistemi operativi.</p>
+          </div>
+        </div>
+
+        <div class="cv-riga">
+          <span class="cv-periodo">2018 – 2023</span>
+          <div class="cv-contenuto">
+            <h3>Licenza Media</h3>
+            <!-- ✏️ MODIFICA: la tua scuola media -->
+            <span class="cv-luogo">Scuola Secondaria di I grado — [Città]</span>
+            <p>Votazione: --/10.</p>
+          </div>
+        </div>
+
+        <!-- ✏️ aggiungi altri blocchi copiando una cv-riga -->
+      </div>
+
+      <!-- ESPERIENZE -->
+      <div class="cv-blocco">
+        <p class="cv-blocco-titolo">Esperienze</p>
+
+        <!-- ✏️ MODIFICA: aggiungi stage, lavori, volontariato, ecc. -->
+        <div class="cv-riga">
+          <span class="cv-periodo">2025</span>
+          <div class="cv-contenuto">
+            <h3>Stage / Progetto scolastico</h3>
+            <!-- ✏️ MODIFICA: azienda o contesto -->
+            <span class="cv-luogo">[Azienda / Ente] — [Città]</span>
+            <p>Descrizione breve di quello che hai fatto e delle competenze
+               applicate o acquisite durante l'esperienza.</p>
+          </div>
+        </div>
+
+        <!-- ✏️ se non hai esperienze lavorative ancora, puoi rimuovere
+             questa sezione o usarla per progetti extrascolastici -->
+      </div>
+
+      <!-- COMPETENZE TECNICHE -->
+      <div class="cv-blocco">
+        <p class="cv-blocco-titolo">Competenze tecniche</p>
+        <!-- ✏️ MODIFICA: le tue competenze -->
+        <div class="cv-skill-lista">
+          <span class="cv-skill">Python</span>
+          <span class="cv-skill">HTML / CSS</span>
+          <span class="cv-skill">Arduino (C++)</span>
+          <span class="cv-skill">Pygame</span>
+          <span class="cv-skill">Reti TCP/IP</span>
+          <span class="cv-skill">Linux</span>
+          <span class="cv-skill">Windows</span>
+          <span class="cv-skill">Office / LibreOffice</span>
+        </div>
+      </div>
+
+      <!-- LINGUE -->
+      <div class="cv-blocco">
+        <p class="cv-blocco-titolo">Lingue</p>
+
+        <div class="cv-riga">
+          <span class="cv-periodo">Italiano</span>
+          <div class="cv-contenuto">
+            <h3>Madrelingua</h3>
+          </div>
+        </div>
+
+        <div class="cv-riga">
+          <span class="cv-periodo">Inglese</span>
+          <div class="cv-contenuto">
+            <!-- ✏️ MODIFICA: il tuo livello -->
+            <h3>Livello B1 — scolastico</h3>
+          </div>
+        </div>
+      </div>
+
     </section>
 
     <!-- ==========================================
@@ -708,9 +344,9 @@
       <div class="contatti-lista">
 
         <!-- ✏️ MODIFICA: la tua email -->
-        <a href="mailto:tua@email.it" class="contatto-riga">
+        <a href="/cdn-cgi/l/email-protection#3b4f4e5a7b5e565a525715524f" class="contatto-riga">
           <span class="contatto-icona">Email</span>
-          <span>tua@email.it</span>
+          <span><span class="__cf_email__" data-cfemail="5d29283c1d38303c3431733429">[email&#160;protected]</span></span>
         </a>
 
         <!-- ✏️ MODIFICA: il tuo profilo GitHub (se ce l'hai) -->
@@ -725,9 +361,11 @@
       </div>
     </section>
 
+    
+
   </main>
 
-  <footer>
+    <footer>
     <!-- ✏️ MODIFICA: il tuo nome -->
     © 2026 Nome Cognome — Portfolio scolastico
   </footer>
